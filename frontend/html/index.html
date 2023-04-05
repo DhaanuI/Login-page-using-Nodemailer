@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+
+
+    <div class="container">
+        
+        <form id="register-form">
+            <h2>Register</h2>
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="register-confirm-password">Confirm Password</label>
+                <input type="password" id="register-confirm-password" name="confirm-password" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+
+        
+        <form id="login-form">
+            <h2>Login</h2>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+
+            <button type="submit">Login</button>   
+        </form>
+
+        <form id="otp-form">
+            <div id="otp-input">
+                <label for="otp">Enter OTP:</label>
+                <input type="number" name="otp" id="otp" required>
+    
+                <button id="verify-btn" type="button">Verify OTP</button>
+            </div>
+    
+            <div id="error-message"></div>
+        </form>
+    </div>
+
+    
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
