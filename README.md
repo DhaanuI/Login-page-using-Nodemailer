@@ -4,6 +4,12 @@
 
 This project is a simple login/register page using nodemailer.
 
+![image](https://user-images.githubusercontent.com/112754832/230364305-70d0ef22-623a-40c6-b062-690185d9d1b6.png)
+
+OTP SweetAlert
+![image](https://user-images.githubusercontent.com/112754832/230364352-6953483c-13e6-4baf-ac03-1cf7817437d3.png)
+
+
 Features:
 * User can signup
 * User can signin by OTP
