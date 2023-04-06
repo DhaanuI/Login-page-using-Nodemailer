@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   font-size: 14px;
+  background-color: #f0f0f0;
 }
 
 form {
@@ -97,3 +98,30 @@ button[type="submit"] {
   cursor: pointer;
 }
 
+
+#forgot{
+    background-color: #d15d27;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+  
+}

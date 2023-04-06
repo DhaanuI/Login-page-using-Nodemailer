@@ -92,7 +92,49 @@ app.post("/login", async (req, res) => {
     }
 })
 
+app.post("/forgotpassword", (req, res) => {
+    const { email } = req.body;
 
+    fun()
+    async function fun() {
+        const otp = Math.floor(1000 + Math.random() * 9000);
+        storedOTP = otp;
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            auth: {
+                user: "snipsandspikeshairsalon@gmail.com",
+                pass: "ngjuyxbgcnicfjla",
+            },
+        });
+
+        const mailOptions = {
+            from: "snipsandspikeshairsalon@gmail.com",
+            to: email,
+            subject: "OTP for Changing Password",
+            text: `Your OTP is ${otp}`
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.send("OTP is sent for change password")
+    }
+
+})
+
+app.post("/updatepassword", async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await UserModel.find({ email });
+        user[0].password = password
+        res.send({ message: "Password updated" })
+
+    }
+    catch (err) {
+        console.log(err)
+        res.send({ "message": "wrong credentials" });
+    }
+})
 
 app.post('/verifyOTP', (req, res) => {
     const { otp } = req.body;

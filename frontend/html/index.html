@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <title>Login Form</title>
     <link rel="stylesheet" href="../css/index.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <body>
 
+    <h1 style="text-align: center;color:rgb(194, 106, 106)">Signup/Signin Using Nodemailer with Sweetalert</h1>
+    <div class="container" style="margin-top:-70px">
 
-    <div class="container">
         
         <form id="register-form">
             <h2>Register</h2>
@@ -29,7 +35,7 @@
             <button type="submit">Register</button>
         </form>
 
-        
+
         <form id="login-form">
             <h2>Login</h2>
             <label for="email">Email:</label>
@@ -38,22 +44,15 @@
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required>
 
-            <button type="submit">Login</button>   
-        </form>
+            <button type="submit">Login</button>
 
-        <form id="otp-form">
-            <div id="otp-input">
-                <label for="otp">Enter OTP:</label>
-                <input type="number" name="otp" id="otp" required>
-    
-                <button id="verify-btn" type="button">Verify OTP</button>
-            </div>
-    
-            <div id="error-message"></div>
+            <button id="forgot">Forgot Password</button>
         </form>
+       
     </div>
 
-    
+
+
 
     <script src="../js/main.js"></script>
 </body>

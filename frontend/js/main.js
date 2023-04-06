@@ -15,38 +15,51 @@ form.addEventListener('submit', async (e) => {
   });
 
   if (res.ok) {
-    document.getElementById("otp-input").style.display = "block"
-    document.getElementById("otp-form").style.display = "block"
-  } else {
-    const errorMessage = document.getElementById('error-message');
-    errorMessage.innerText = 'Invalid email or password';
-    errorMessage.style.display = 'block';
-  }
-});
+    const ipAPI = '//api.ipify.org?format=json'
 
+    const inputValue = fetch(ipAPI)
+      .then(response => response.json())
+      .then(data => data.ip)
 
-const verifyBtn = document.getElementById('verify-btn');
-verifyBtn.addEventListener('click', async (e) => {
-  e.preventDefault();
+    const { value: ipAddress } = await Swal.fire({
+      title: 'Enter the OTP',
+      input: 'text',
+      inputLabel: 'OTP',
+      inputValue: inputValue,
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to enter OTP!'
+        }
+        else {
+          fun()
+          async function fun() {
+            const res = await fetch('http://localhost:3000/verifyOTP', {
+              method: 'POST',
 
-  const otp = document.getElementById('otp').value;
-  console.log(otp)
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ otp: Number(value) })
+            });
 
-  const res = await fetch('http://localhost:3000/verifyOTP', {
-    method: 'POST',
-
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ otp: Number(otp) })
-  });
-
-  if (res.ok) {
-    alert("Authentication is done")
-  } else {
-    const errorMessage = document.getElementById('error-message');
-    errorMessage.innerText = 'Invalid OTP';
-    errorMessage.style.display = 'block';
+            if (res.ok) {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Authentication is done',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              form.elements.email.value = "";
+              form.elements.password.value = "";
+            } else {
+              return 'Incorrect OTP!'
+            }
+          }
+        }
+      }
+    })
   }
 });
 
@@ -73,5 +86,99 @@ signupform.addEventListener('submit', async (e) => {
     const errorMessage = document.getElementById('error-message');
     errorMessage.innerText = 'Error signing up, please try again';
     errorMessage.style.display = 'block';
+  }
+});
+
+
+const forgotPassword = document.getElementById('forgot');
+forgotPassword.addEventListener('click', async () => {
+
+  const email = document.getElementById('email').value;
+
+  console.log(email)
+  const res = await fetch('http://localhost:3000/forgotpassword', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (res.ok) {
+    const ipAPI = '//api.ipify.org?format=json'
+
+    const inputValue = fetch(ipAPI)
+      .then(response => response.json())
+      .then(data => data.ip)
+
+    const { value: ipAddress } = await Swal.fire({
+      title: 'Enter the OTP for Password Change',
+      input: 'text',
+      inputLabel: 'Your OTP',
+      inputValue: inputValue,
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to enter OTP!'
+        }
+        else {
+          fun()
+          async function fun() {
+            const res = await fetch('http://localhost:3000/verifyOTP', {
+              method: 'POST',
+
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ otp: Number(value) })
+            });
+
+            if (res.ok) {
+              const { value: ipAddress } = await Swal.fire({
+                title: 'Enter the New Password ',
+                input: 'password',
+                inputLabel: 'New Password',
+                inputValue: inputValue,
+                showCancelButton: true,
+                inputValidator: (value) => {
+                  if (!value) {
+                    return 'You need to enter the New Password!'
+                  }
+                  else {
+                    fun()
+                    async function fun() {
+                      const res = await fetch('http://localhost:3000/updatepassword', {
+                        method: 'POST',
+
+                        headers: {
+                          'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password: value })
+                      });
+
+                      if (res.ok) {
+                        Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Password changed',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                      }
+                      else {
+                        return 'Incorrect OTP!'
+                      }
+                    }
+                  }
+                }
+              })
+            }
+            else {
+              return 'Incorrect OTP!'
+            }
+          }
+        }
+      }
+    })
   }
 });
